@@ -58,6 +58,46 @@ This structure informs the task decomposition. Each task should produce self-con
 **Tech Stack:** [Key technologies/libraries]
 
 ---
+
+## Context
+
+**REQUIRED for automated plan review.** Explain the problem, need, or motivation behind this change. Minimum ~50 characters.
+
+- What problem does this solve?
+- Why is this change needed now?
+- What prompted this work?
+- What is the intended outcome?
+
+**Example:**
+```markdown
+## Context
+
+This plan migrates authentication from Supabase to Clerk OIDC. The current system uses Supabase-specific JWT tokens that need replacement with Clerk's OIDC-compliant tokens verified via JWKS. The backend has existing OIDC middleware that works with any OIDC provider - it just needs configuration updates. The frontend AuthContext needs the `isLoaded` guard to avoid race conditions during auth state initialization.
+```
+
+## Implementation
+
+**REQUIRED for automated plan review.** High-level summary of the implementation approach. Minimum ~100 characters.
+
+- Number of tasks and their scope
+- Backend vs frontend split
+- Key files or components involved
+- Testing/verification approach
+
+**Example:**
+```markdown
+## Implementation
+
+The implementation involves 10 tasks across backend and frontend:
+
+**Backend (4 tasks):** Update `.env.example` with Clerk OIDC variables, modify `cmd/main.go` for Clerk config, remove Supabase comments from OIDC verifier and auth middleware.
+
+**Frontend (5 tasks):** Fix `AuthContext.tsx` with `isLoaded` guard, remove registration link from `LoginPage.tsx`, remove `/register` route, verify no Supabase dependencies.
+
+**Testing (1 task):** Integration testing with Clerk env, verify JWKS fetch, test login flow, run quality gates.
+```
+
+---
 ```
 
 ## Task Structure
